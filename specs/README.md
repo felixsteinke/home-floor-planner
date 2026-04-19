@@ -34,6 +34,7 @@ This folder is the product source of truth for Home Floor Planner.
 - Capture unresolved questions in [specs/discovery/open-questions.md](./discovery/open-questions.md) instead of scattering Q/A across feature files.
 - Keep only unresolved questions in [specs/discovery/open-questions.md](./discovery/open-questions.md); remove entries after decisions are applied to specs.
 - Use real local Markdown links for every file reference (for example `[specs/product.md](./product.md)`).
+- Use Mermaid diagrams in architecture-related specs to visualize dependency flow and structure.
 - Link related specs and decisions.
 
 ## Required sections for feature specs

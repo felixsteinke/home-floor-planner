@@ -19,6 +19,7 @@ Use a short, descriptive `kebab-case.md` filename, for example:
 
 - `state-management-strategy.md`
 - `canvas-rendering-approach.md`
+- `layered-architecture-boundaries.md`
 
 ## Minimum structure
 

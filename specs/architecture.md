@@ -4,110 +4,114 @@ Status: Draft
 
 ## Summary
 
-This document defines product-level structural constraints and domain semantics for layout modeling. It intentionally avoids framework or implementation details.
+This document defines the required implementation architecture for Home Floor Planner. The application uses strict layer separation across domain, service, and representation, aligned with repository structure, testing strategy, and architecture linting.
 
-## Core constraints
+## Layer model
+
+The codebase is separated into three layers:
+
+- Domain layer: pure TypeScript business/domain logic with no Angular dependencies.
+- Service layer: Angular service orchestration that composes domain logic and infrastructure concerns.
+- Representation layer: Angular UI (components, routes, templates) with no business logic.
+
+Layer rules:
+
+- Representation may depend on service and domain types, but not domain implementations.
+- Service may depend on domain.
+- Domain must not depend on service or representation.
+- Domain must remain as independent as possible from external dependencies.
+- Service should use Angular capabilities first and avoid unnecessary third-party dependencies.
+- Representation should primarily use Angular Material components for UI controls and layout primitives.
+
+```mermaid
+flowchart TD
+    R[Representation Layer\nAngular components/routes/templates] --> S[Service Layer\nAngular services/orchestration]
+    S --> D[Domain Layer\nPure TypeScript]
+
+    D -. forbidden .-> S
+    D -. forbidden .-> R
+    S -. forbidden .-> R
+```
+
+## Required file structure
+
+Implementation must reflect layers in folder structure:
+
+- `src/app/domain/`
+- `src/app/service/`
+- `src/app/representation/`
+
+Suggested structure:
+
+- `src/app/domain/`
+  - `entities/`
+  - `value-objects/`
+  - `policies/`
+  - `use-cases/` (pure TypeScript only)
+- `src/app/service/`
+  - `application-services/`
+  - `persistence-services/`
+  - `import-export-services/`
+- `src/app/representation/`
+  - `shell/`
+  - `features/`
+  - `shared-ui/`
+
+```mermaid
+flowchart LR
+    subgraph SRC[src/app]
+        D[domain]
+        S[service]
+        R[representation]
+    end
+
+    R --> S
+    S --> D
+```
+
+## Testing and architecture enforcement
+
+- Unit testing focus:
+  - Domain layer: high coverage for business rules and transformations.
+  - Service layer: high coverage for orchestration, validation, and data flow.
+- E2E testing focus:
+  - Representation workflows and accessibility behaviors.
+  - Cross-layer user flows (property selection, editing, import/export).
+- Architecture linting:
+  - Use ArchUnitTS to enforce layer boundaries and dependency direction.
+  - Failing architecture rules must block submission until fixed.
+
+## Readability and dependency constraints
+
+- Readability is a primary quality objective.
+- Keep functions/classes small and intention-revealing.
+- Prefer explicit names over clever abstractions.
+- Avoid hidden side effects across layers.
+- Keep domain APIs deterministic and testable.
+
+## Domain semantics and constraints
 
 - The product is a static website with no backend.
-- The source data model is JSON.
 - One JSON object represents one property.
-- Persistence is local to the browser via local storage.
-- Import/export must preserve the same JSON structure.
-- Exactly one property is active in local storage at a time.
+- Exactly one property is active at a time.
 - Built-in bundled property files may be loaded as the active property.
+- Coordinates are centimeters.
+- Property origin is fixed at bottom-left `(0,0)`.
+- Child coordinates are relative to the immediate parent.
+- Walls/doors/openings are lines in current version.
+- Wall and door lines require a rectangle parent context.
 
-## Object hierarchy
+## UI and orchestration constraints
 
-- Property (root)
-  - Buildings (0..n)
-  - Building layers (0..n)
-    - Shapes (0..n)
-    - Child shapes (0..n recursively)
-
-Hierarchy behavior:
-
-- Every non-root shape may have a parent reference.
-- Child coordinates are relative to the immediate parent coordinate system.
-- Parent transforms must be propagated to descendants.
-
-## Shape primitives
-
-- Rectangle
-  - Usage: property/building bounds, room bounds, hidden layout frames.
-  - Geometry: anchor point, width, height.
-- Line
-  - Usage: walls, doors, openings, separators.
-  - Geometry: start/end points relative to the current parent context.
-
-Door and opening elements are represented as lines in the current version.
-
-Wall and door lines require a rectangle parent context and cannot exist without a parent rectangle.
-
-No other primitive shapes are in scope for the current version.
-
-## Semantic typing
-
-Shapes can be tagged with semantic types, including at least:
-
-- `property`
-- `building`
-- `building-layer`
-- `room`
-- `wall`
-- `door`
-- `opening`
-- `helper-frame`
-
-Type drives default styling, filtering, visibility, and drawer grouping.
-
-## Coordinate systems
-
-- All measurement units are centimeters.
-- The property is the top-level coordinate system.
-- Property origin is fixed at bottom-left (0,0).
-- A child shape creates or participates in a nested local coordinate space.
-- Child origin is always the bottom-left corner of the immediate parent shape.
-- Coordinate system overlays are separate from shape visibility and can be toggled independently.
-
-## Editing constraints for current version
-
-- Snapping (grid, edge, midpoint) is deferred.
-- Rectangles remain axis-aligned; rotation is out of scope.
-- Drawer and canvas are selection/display surfaces; value edits are performed through dedicated input fields.
-
-## Derived and editable data semantics
-
-- Auto-derived values include:
-  - Rectangle area.
-  - Line length.
-- User-readable fields include:
-  - Name/title.
-  - Notes.
-  - Optional overrides for displayed metric text.
-  - Opening-direction metadata for door/opening lines.
-
-## Import and export semantics
-
-- Import requires explicit confirmation before replacing the active property.
-- JSON documents include a schema version field.
-- Export metadata includes:
-  - property ID,
-  - export timestamp,
-  - optional property display name.
-
-Derived values must remain available even when users customize display labels.
-
-## Visibility semantics
-
-- Users can hide shapes and type groups.
-- Hiding a parent hides all descendants from viewport rendering.
-- Drawer context reflects the highest visible hierarchy level.
-- If one top-level visible parent remains, it becomes the default active context candidate.
+- Drawer and canvas are display/selection surfaces.
+- Value editing is done through dedicated input fields.
+- Snapping is deferred in current version.
+- Rotation is out of scope for current version.
 
 ## Open questions (optional)
 
-- Add unresolved architecture/data-semantics questions only.
-- Remove each item after the decision is reflected in architecture/feature specs.
+- Add unresolved architecture questions only.
+- Remove each question after applying the decided behavior to specs.
 
 ## Links
 
@@ -118,3 +122,4 @@ Derived values must remain available even when users customize display labels.
 - [specs/features/import-export-and-local-persistence.md](./features/import-export-and-local-persistence.md)
 - [specs/features/application-layout-and-property-selection.md](./features/application-layout-and-property-selection.md)
 - [specs/features/first-time-user-guidance.md](./features/first-time-user-guidance.md)
+- [specs/decisions/layered-architecture-boundaries.md](./decisions/layered-architecture-boundaries.md)
