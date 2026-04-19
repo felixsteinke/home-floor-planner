@@ -1,7 +1,5 @@
 # First-Time User Guidance
 
-Status: Draft
-
 ## Summary
 
 This feature defines an optional onboarding experience that helps first-time users discover the application layout, property selection flow, and basic editing workflow without forcing a mandatory tutorial.
@@ -34,6 +32,9 @@ New users can understand core concepts faster (property selection, hierarchy, ed
   - Difference between selection/display surfaces and dedicated editing input fields.
   - Basic import/export and local privacy behavior.
 - Guidance steps must be contextual to current UI regions and controls.
+- Guidance must visually highlight the currently referenced UI element(s) for each step.
+- Highlighted targets must include a clear text label so meaning is not conveyed by color only.
+- If a target element is unavailable in the current state, guidance must show a fallback message and allow continuing.
 - Guidance state (completed/skipped) must be stored locally.
 - Users must be able to reset guidance state and replay the onboarding flow.
 
@@ -44,6 +45,7 @@ New users can understand core concepts faster (property selection, hierarchy, ed
 - [ ] A user can reopen onboarding after skipping or completing it.
 - [ ] Onboarding explains property switching, editing inputs, and import/export behavior.
 - [ ] Onboarding progress state persists locally and can be reset.
+- [ ] Guidance steps highlight relevant UI elements while each step is active.
 
 ## UX and accessibility requirements
 

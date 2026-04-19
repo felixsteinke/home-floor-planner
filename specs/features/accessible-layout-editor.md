@@ -1,7 +1,5 @@
 # Accessible Layout Editor
 
-Status: Draft
-
 ## Summary
 
 The editor frame is the main workspace for placing and adjusting rectangle and line shapes within nested coordinate systems, while keeping interactions simple and accessible.
@@ -26,6 +24,7 @@ Users need direct visual editing to model real properties quickly, but they also
 ## Requirements
 
 - The editor must render a centimeter-based coordinate space.
+- The editor must visually render the active layout as a 2D floor map (rectangle and line primitives).
 - Property frame dimensions define top-level coordinate bounds.
 - Example mapping: 25m x 20.5m maps to 2500 x 2050 in model coordinates.
 - The property root coordinate origin is fixed at the bottom-left corner of the property frame (0,0).
@@ -60,6 +59,7 @@ Users need direct visual editing to model real properties quickly, but they also
 - [ ] A user can add at least one building rectangle under the property.
 - [ ] A user can add child shapes in nested contexts and verify parent-relative placement.
 - [ ] Moving a parent updates every child position consistently.
+- [ ] The editor shows a visible 2D floor map of active layout geometry.
 - [ ] Property origin is fixed at (0,0) in the bottom-left of the property frame.
 - [ ] A child shape placed inside a parent uses coordinates relative to that parent's bottom-left corner.
 - [ ] A user can create a non-rectangular room using a hidden rectangle plus wall lines.

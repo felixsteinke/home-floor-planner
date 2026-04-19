@@ -1,7 +1,5 @@
 # Import, Export, and Local Persistence
 
-Status: Draft
-
 ## Summary
 
 This feature defines how plan data is saved, restored, imported, and exported in a fully static environment without backend services.
@@ -25,6 +23,10 @@ Users need confidence that their planning data is preserved locally, portable ac
 ## Requirements
 
 - Application must persist exactly one active property object in browser local storage at a time.
+- Application must persist workbook metadata and workbook property data in browser local storage.
+- Application must restore the last active workbook on refresh.
+- Import/export and local-data actions must be surfaced inside a dedicated data dialog (or modal sheet), not as always-visible main-frame controls.
+- The dedicated data dialog must include clear privacy/local-first behavior messaging.
 - Users must be able to replace the active property by importing another valid property file.
 - Bundled built-in property files shipped with the app must be loadable as the active property.
 - One JSON object represents one property and includes:
@@ -56,6 +58,7 @@ Users need confidence that their planning data is preserved locally, portable ac
 ## Acceptance criteria
 
 - [ ] After changes, refreshing the page restores the same property from local storage.
+- [ ] After changes, refreshing the page restores the workbook list and last active workbook.
 - [ ] The app stores one active property at a time and replacing it switches the full active dataset.
 - [ ] A user can load a bundled built-in property as the active dataset.
 - [ ] Exported JSON can be imported back and recreates the same hierarchy and visual semantics.
@@ -69,6 +72,7 @@ Users need confidence that their planning data is preserved locally, portable ac
 ## UX and accessibility requirements
 
 - Import/export controls must be keyboard accessible and clearly labeled.
+- Opening and closing the data dialog must preserve logical focus and be keyboard accessible.
 - File and text-based import interactions must provide screen-reader friendly status updates.
 - Error messages must identify the failing condition and suggested corrective action.
 - Success/error feedback must not rely on color alone.
@@ -77,6 +81,7 @@ Users need confidence that their planning data is preserved locally, portable ac
 
 - Persisted model is JSON-first and authoritative for session restoration.
 - Persistence granularity is one property per JSON document and one active property in local storage.
+- Persistence granularity is one property per workbook, with one active workbook selected at runtime.
 - Imported JSON becomes the new active state once validated and confirmed.
 - Derived values should be recalculated or verified after import where necessary.
 - Bundled built-in properties follow the same schema and activate through the same replacement flow.
@@ -91,3 +96,4 @@ Users need confidence that their planning data is preserved locally, portable ac
 - [specs/features/first-time-user-guidance.md](./first-time-user-guidance.md)
 - [specs/features/layout-data-drawer.md](./layout-data-drawer.md)
 - [specs/features/accessible-layout-editor.md](./accessible-layout-editor.md)
+- [specs/features/workbook-management.md](./workbook-management.md)

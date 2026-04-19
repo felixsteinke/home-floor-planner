@@ -15,6 +15,7 @@ This folder defines user-facing capabilities for the current product version.
 - [import-export-and-local-persistence.md](./import-export-and-local-persistence.md)
 - [application-layout-and-property-selection.md](./application-layout-and-property-selection.md)
 - [first-time-user-guidance.md](./first-time-user-guidance.md)
+- [workbook-management.md](./workbook-management.md)
 
 ## Minimum structure
 

@@ -1,10 +1,10 @@
 # Layout Data Drawer
 
-Status: Draft
-
 ## Summary
 
 The layout data drawer is the structural control center for the plan. It exposes the full property hierarchy, visibility controls, shape metadata, and context switching for nested coordinate systems.
+
+The drawer is not the 2D floor-map viewport; visual map rendering belongs to the main editor workspace.
 
 ## User value
 
@@ -31,9 +31,13 @@ Users need a reliable, inspectable view of all layout entities to avoid losing t
 - Shapes must be grouped under each layer and support recursive child display.
 - Each node must display at least:
   - Name.
+  - Identifier (node id).
   - Type.
+  - Parent reference context (where applicable).
   - Visibility state.
+  - Effective visibility state (visible because all ancestors are visible).
   - Basic geometry summary (for example width/height or line length).
+  - Core style summary (stroke/fill/z-index where applicable).
 - Users must be able to select any node from the drawer.
 - Selection in drawer and editor must stay synchronized.
 - Drawer hierarchy ordering is data-defined only for the current version.
@@ -68,6 +72,7 @@ Users need a reliable, inspectable view of all layout entities to avoid losing t
 - [ ] Sibling order is not manually reorderable in the current version.
 - [ ] Visibility toggles apply immediately and are not required to support individual undo steps.
 - [ ] Drawer expansion/collapse state returns to default after a page reload.
+- [ ] A user can see id, parent context, effective visibility, and style summary for each node without opening another panel.
 
 ## UX and accessibility requirements
 

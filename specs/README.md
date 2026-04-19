@@ -78,3 +78,4 @@ If a file is `Superseded`, include a link to its replacement.
 - [specs/features/import-export-and-local-persistence.md](./features/import-export-and-local-persistence.md)
 - [specs/features/application-layout-and-property-selection.md](./features/application-layout-and-property-selection.md)
 - [specs/features/first-time-user-guidance.md](./features/first-time-user-guidance.md)
+- [specs/features/workbook-management.md](./features/workbook-management.md)
