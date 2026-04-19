@@ -30,7 +30,7 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.sass"]
+            "styles": ["src/material-theme.scss", "src/styles.sass"]
           },
           "configurations": {
             "production": {

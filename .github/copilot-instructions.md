@@ -10,6 +10,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 - Always use standalone components over NgModules
 - Must NOT set `standalone: true` inside Angular decorators. It's the default in Angular v20+.
+- Prefer Angular Material components and theming primitives for styling and UI structure before creating custom styling elements.
 - Use signals for state management
 - Implement lazy loading for feature routes
 - Do NOT use the `@HostBinding` and `@HostListener` decorators. Put host bindings inside the `host` object of the `@Component` or `@Directive` decorator instead
