@@ -1,0 +1,78 @@
+:host
+  display: block
+  min-height: 100dvh
+
+.spacer
+  flex: 1 1 auto
+
+.layout-grid
+  display: grid
+  gap: 1rem
+  grid-template-areas: 'drawer editor inspector'
+  grid-template-columns: minmax(340px, 1.2fr) minmax(420px, 2fr) minmax(340px, 1.2fr)
+  padding: 1rem
+
+.drawer-column
+  grid-area: drawer
+
+.editor-column
+  grid-area: editor
+
+.inspector-column
+  grid-area: inspector
+
+.full-width
+  width: 100%
+
+.drawer-actions
+  display: flex
+  flex-wrap: wrap
+  gap: 0.5rem
+  margin-bottom: 0.75rem
+
+.drawer-tree
+  list-style: none
+  margin: 0
+  padding: 0
+
+.tree-row
+  align-items: center
+  column-gap: 0.5rem
+  display: flex
+  flex-wrap: wrap
+  margin-bottom: 0.5rem
+
+.selected-row
+  outline: 2px solid var(--mat-sys-primary)
+  outline-offset: 2px
+
+.onboarding-highlight
+  outline: 3px solid var(--mat-sys-tertiary)
+  outline-offset: 2px
+
+.onboarding-label
+  margin: 0 0 0.5rem
+  font-weight: 600
+
+.row-meta
+  color: rgba(0, 0, 0, 0.7)
+  font-size: 0.8rem
+
+.geometry-grid
+  display: grid
+  gap: 0.75rem
+  grid-template-columns: repeat(2, minmax(140px, 1fr))
+  margin: 1rem 0
+
+@media (max-width: 1200px)
+  .layout-grid
+    grid-template-areas: 'drawer editor' 'inspector inspector'
+    grid-template-columns: minmax(300px, 1fr) minmax(360px, 1.4fr)
+
+@media (max-width: 960px)
+  .layout-grid
+    grid-template-areas: 'drawer' 'editor' 'inspector'
+    grid-template-columns: 1fr
+
+  .geometry-grid
+    grid-template-columns: 1fr
