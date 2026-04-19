@@ -52,3 +52,29 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Design services around a single responsibility
 - Use the `providedIn: 'root'` option for singleton services
 - Use the `inject()` function instead of constructor injection
+
+## Local Verification Best Practices
+
+- Use project `package.json` scripts for local verification instead of ad-hoc CLI commands.
+- Run `npm run format` before verification to normalize code style.
+- Run `npm run lint` and fix all lint issues before submitting changes.
+- Run `npm run test` for unit tests and ensure they pass locally.
+- Run `npm run build` to confirm the app compiles for production.
+- Run `npm run e2e` when changes affect user flows, routing, forms, or accessibility behavior.
+- Preferred pre-submit order: `npm run format`, `npm run lint`, `npm run test`, `npm run build`.
+
+## Specification-Driven Development
+
+- Treat the Markdown files under `specs/` as the project specification source of truth.
+- Before starting non-trivial work, read `specs/README.md`, then the most relevant files in `specs/features/`, `specs/decisions/`, and `specs/architecture.md` before changing code.
+- Keep the entire specification in Markdown files inside `specs/`; do not spread core requirements across issue comments or code-only notes.
+- Use real local Markdown links for all spec references (for example `[specs/product.md](specs/product.md)` and `[specs/features/layout-data-drawer.md](specs/features/layout-data-drawer.md)`).
+- Keep only unresolved questions in `specs/discovery/open-questions.md`; remove entries once resolved.
+- After resolving a question, update the resulting behavior requirements in relevant spec files and do not keep duplicate Q/A history.
+- Update the relevant spec files in the same change whenever requirements, behavior, UX, architecture, or delivery scope changes.
+- Create a new feature spec before implementing a substantial feature, workflow, or route.
+- Record durable architectural choices as separate decision files under `specs/decisions/` instead of burying them inside implementation details.
+- Keep spec files small, focused, and linkable. Prefer one topic per file, kebab-case filenames, and explicit cross-links between related specs.
+- Write spec files for efficient AI consumption: use stable headings, concrete requirements, acceptance criteria, and constraints.
+- When a spec becomes outdated, update it immediately or mark it clearly as `Superseded` with a link to the replacement.
+- If code and specs disagree, resolve the mismatch instead of silently coding around it.
