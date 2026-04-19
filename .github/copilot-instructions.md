@@ -97,3 +97,5 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Add e2e coverage for representation workflows and accessibility behavior.
 - Enforce architecture boundaries with ArchUnitTS rules.
 - Treat architecture lint failures as blocking issues.
+- Maintain ArchUnitTS tests in `src/architecture/architecture.spec.ts` and follow `docs/architecture-testing.md` when adding or changing rules.
+- Keep `docs/architecture-testing.md` updated whenever ArchUnitTS usage patterns, options, or rule coverage change.
